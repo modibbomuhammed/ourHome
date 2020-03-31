@@ -1,0 +1,30 @@
+<% layout('layouts/boilerplate') -%>
+<h1><%= title %></h1>
+    <p>Welcome to <%= title %> pages</p>
+	  <p>Welcome To Our Home App</p>
+
+
+	<a href='/homes/new' class='btn btn-info'>POST NEW PROPERTY</a>
+	<h3>Current Properties</h3>
+	
+	<ol>
+		<% homes.forEach((home,index) => { %>
+			<li><%= home.state %> State
+				<ul>
+					<li> location at <%= home.location %></li>
+					<li> Going for <%= home.lease %></li>
+					<li> <%= home.bedrooms %> bedrooms property costing N<%= home.price %></li>
+					<li> Below are pictures of the property: 
+						<ul>
+						<% home.pictures.forEach(photo => { %>
+							<li><img src='<%= photo.url %>'></li>
+						<% }) %> 
+						</ul>
+					</li>
+				</ul>
+				<a href='/homes/<%= home.id %>'> Check it out...</a>
+			</li>	
+		<% }) %>
+		
+	</ol>
+

@@ -1,0 +1,99 @@
+<% layout('layouts/boilerplate') -%>
+<form action='/homes/<%= home.id %>?_method=PUT' method='POST' enctype='multipart/form-data'>
+	<div>
+		<label for='state'>State</label>
+		
+		<select id="state" name='state'>
+			<option value='0'>State</option>
+		  	<option value="Lagos">Lagos</option>
+		  	<option value="Abuja">Abuja</option>
+		</select>
+
+	</div>
+	
+	<div>
+		<label for='location'>Location</label>
+		
+		<select id="location" name='location'>
+			<option value='0'>Location</option>
+		  	<!-- <option value="Alimosho">Alimosho</option>
+		  	<option value="Ajeromi-Ifeln">Ajeromi-Ifeln</option>
+			<option value="Kosofe">Kosofe</option>
+		  	<option value="Mushin">Mushin</option>
+			<option value="Oshodi-Isolo">Oshodi-Isolo</option>
+		  	<option value="Ojo">Ojo</option>
+			<option value="Alimosho">Alimosho</option>
+		  	<option value="Ikorodu">Ikorodu</option>
+			<option value="Surulere">Surulere</option>
+		  	<option value="Agege">Agege</option>
+			<option value="Ifako-Ijaiy">Ifako-Ijaiy</option>
+		  	<option value="Somolu">Somolu</option>
+			<option value="Amuwo-Odofin">Amuwo-Odofin</option>
+			<option value="Lagos Mainland">Lagos Mainland</option>
+			<option value="Ikeja">Ikeja</option>
+		  	<option value="Eti-Osa">Eti-Osa</option>		 
+			<option value="Badagry">Badagry</option>
+			<option value="Apapa">Apapa</option>
+		  	<option value="Lagos Island">Lagos Island</option>
+			<option value="Epe">Epe</option>
+			<option value="Ibeju-Lekki">Ibeju-Lekki</option> -->
+			
+		</select>				
+			
+		<!-- <input id='location' type='text' name='state' placeholder='Where is your property located '> -->
+	</div>
+	
+	<div>
+		<label for='lease'>Lease/Let Category</label>
+		<select id='lease' name='lease'>
+			<option value='RENT'>FOR RENT</option>
+			<option value='SALE'>FOR SALE</option>
+		</select>
+	</div>
+	
+	<div>
+		<label for='bedrooms'>Bedrooms</label>
+		<input type='number' value='<%= home.bedrooms %>' step='1' max='6' name='bedrooms'>
+	</div>
+	
+	<div>
+		<label for='price'>Price</label>
+		<input type='number' value='<%= home.price %>' step='1' name='price'>
+	</div>
+	
+	<div>
+		<label for='description'>Description</label>
+		<textarea name='description'><%= home.description %></textarea>
+	</div>
+	
+	<div>
+		<label for='pictures'>Pictures</label>
+		<input type='file' name='pictures' accepts='images/*' id='imageUpload' multiple>
+	</div>
+	
+	<div>
+		<h5>Current Pics</h5>
+		<div>
+		<% home.pictures.forEach((pic, index) => { %>
+			<span><img src='<%= pic.url %>'>
+			<label for='pic<%= index %>'>Change?</label>
+			<input id='pic<%= index %>' type='checkbox' value='<%= pic.public_id %>' name='changePics[]' class='deleteCheckbox'>
+			</span>
+		<% }) %>
+		</div>
+	</div>
+	
+	<button>Submit</button>
+</form>
+<%= console.log(home) %>
+<script> 
+var currentState = "<%= home.state %>"
+var currentLocation = '<%= home.location %>'
+
+</script>
+<script src='/javascripts/editLoad.js'></script>
+<script src='/javascripts/editHome.js'></script>
+					
+			
+					
+		
