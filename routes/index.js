@@ -12,12 +12,12 @@ const upload = multer({ storage }).array('pictures', 10)
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.redirect('/homes');
+  res.render('index/index', {title: 'Home'});
 });
 
 // GET REGISTER PAGE
 router.get('/register', (req,res,next) => {
-	res.render('register', { title: 'Registration'})	
+	res.render('index/register', { title: 'Registration'})	
 })
 
 // POST REGISTER PAGE
@@ -34,7 +34,7 @@ router.post('/register', async (req,res,next) => {
 
 // GET LOGIN PAGE
 router.get('/login', (req,res,next) => {
-	res.render('login', { title: 'Login'})
+	res.render('index/login', { title: 'Login'})
 })
 
 // POST LOGIN FORM

@@ -1,0 +1,23 @@
+header {
+  padding: 156px 0 100px;
+}
+
+section {
+  padding: 150px 0;
+}
+
+#search {
+	padding-top: 90px;
+}
+
+h2 {
+	margin-bottom: 20px;
+	font-size: 3rem;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+button {
+	    width: 100%;
+    margin-top: 20px;
+}

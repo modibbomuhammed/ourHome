@@ -1,23 +1,49 @@
-
 <% layout('layouts/boilerplate') -%>
-<section>
+<% include ../partials/navbar %>
+
+<div class='row'>
+	<div class='col-md-4'>
+		<div id="map"></div>		
+	</div>
+	
+	<div class='col-md-8'>
+		
+	</div>
 	<%= home.state %> State
 			<ul>
 				<li> location at <%= home.location %></li>
 				<li> Going for <%= home.lease %></li>
 				<li> <%= home.bedrooms %> bedrooms property costing N<%= home.price %></li>
 				<li><a href='/homes/<%= home.id %>/edit' class='btn btn-primary'>EDIT</a><form style='display: inline'action='/homes/<%= home.id %>?_method=DELETE' method='POST'><button class='btn btn-danger'>DELETE(Warning you can't retrieve this data)</button></form></li>
-				<li> Below are pictures of the property: 
-					<ul>
-					<% home.pictures.forEach(photo => { %>
-						<li><img src='<%= photo.url %>'></li>
-					<% }) %> 
-					</ul>
-				</li>
+				<div id='pictures-box'> Below are pictures of the property:
+					
+					<div class='slidershow middle'>
+						<div class='slides'>
+						
+					<% for(x = 0; x < home.pictures.length; x++) { %>		
+						<input type='radio' name='r' id='r<%= x %>' <%= x === 0 ? 'checked' : '' %>>
+					<% } %>
+							
+					<% home.pictures.forEach((photo, index) => { %>
+						 
+						<div class='slide <%= index === 0 ? 's1': '' %>'><img src='<%= photo.url %>'></div>
+					<% }) %>
+							
+						</div>
+						
+						
+						<div class='navigation'>
+							<% home.pictures.forEach((photo,index) => { %>
+								<label for='r<%= index %>' class='bar'></label>
+							<% }) %>
+						</div>
+						
+					</div>
+				</div>
 			</ul>
-	</section>
+	</div>
 	
-<div id="map"></div>
+
 
 
 <script>
@@ -25,12 +51,12 @@
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: <%= home.lat %>, lng: <%= home.lng %>},
-          zoom: 8
+          zoom: 13
         });
       }
 	
 </script>
 
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZ3LGGrJoGt7C_8xTzh3mKpm0EkQJa1aI&callback=initMap"
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3y4rA9gEGJe40UAFr0YOlqp-7VkpoUjI&callback=initMap"
     async defer></script>

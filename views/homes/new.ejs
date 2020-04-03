@@ -1,5 +1,10 @@
 <% layout('layouts/boilerplate') -%>
-<form action='/homes' method='POST' enctype='multipart/form-data'>
+<% include ../partials/navbar %>
+
+<div class='container'>
+	<div class='row'>
+		<div class='col-md-12'>
+			<form action='/homes' method='POST' enctype='multipart/form-data'>
 	<div>
 		<label for='state'>State</label>
 		
@@ -78,6 +83,10 @@
 	
 	<button>Submit</button>
 </form>
+
+		</div>
+	</div>	
+</div>
 
 
 
