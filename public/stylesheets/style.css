@@ -15,17 +15,9 @@ a {
 
 /* for show page image slider */
 
-#pictures-box {
-	/* margin: 0;
-	padding: 0;
-	background: #34495e;
-	height: 500px;
-	width: 500px; */
-
-	
+#pictures-box {	
     margin: 0;
     padding: 0;
-	/* background: #34495e; */
 	position: relative;
 }
 
@@ -37,9 +29,6 @@ a {
 
 .middle{
 	position: absolute;
-	/* top: 50%; */
-	/* left: 50%; */
-	/* transform: translate( -50%, -50%); */
 }
 
 
@@ -98,3 +87,17 @@ input[name="r"]{
 #r5:checked ~ .s1{
   margin-left: -80%;
 }
+
+
+/*  other show page styles */
+
+#myRow{
+	margin-top: 20px;
+	display: flex;
+    justify-content: space-between;
+}
+
+address{
+	 padding-top: 10px;
+}
+

@@ -1,0 +1,17 @@
+form{
+
+}
+
+h2{
+	text-align: center;
+}
+
+#content{
+	margin-top: 50px;
+}
+
+.dropdown{
+	width: 30%;
+	display: inline-block;
+	margin-right: 3%
+}

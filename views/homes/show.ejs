@@ -6,42 +6,54 @@
 		<div id="map"></div>		
 	</div>
 	
-	<div class='col-md-8'>
+	<section class='col-md-8'>
+		<div id='myRow'>
+			<h3><%= home.bedrooms %> Bedroom Property For <%= home.lease.toLowerCase() %></h3>
+			<address><i class='fas fa-map-marker-alt'></i>  <%= home.location %></address>
+		</div>
 		
-	</div>
+		<div>
+			<div id='pictures-box'> Below are pictures of the property:
+					
+				<div class='slidershow middle'>
+					<div class='slides'>
+						
+						<% for(x = 0; x < home.pictures.length; x++) { %>		
+							<input type='radio' name='r' id='r<%= x %>' <%= x === 0 ? 'checked' : '' %>>
+						<% } %>
+
+						<% home.pictures.forEach((photo, index) => { %>
+
+							<div class='slide <%= index === 0 ? 's1': '' %>'><img src='<%= photo.url %>'></div>
+						<% }) %>
+							
+					</div>
+						
+						
+					<div class='navigation'>
+						<% home.pictures.forEach((photo,index) => { %>
+							<label for='r<%= index %>' class='bar'></label>
+						<% }) %>
+					</div>
+						
+				</div>
+			</div>
+		</div>
+		
+		
+	</section>
+	
+	
+	
 	<%= home.state %> State
 			<ul>
-				<li> location at <%= home.location %></li>
-				<li> Going for <%= home.lease %></li>
-				<li> <%= home.bedrooms %> bedrooms property costing N<%= home.price %></li>
+				<li> location at </li>
+				<li> Going for </li>
+				<li>  bedrooms property costing N<%= home.price %></li>
 				<li><a href='/homes/<%= home.id %>/edit' class='btn btn-primary'>EDIT</a><form style='display: inline'action='/homes/<%= home.id %>?_method=DELETE' method='POST'><button class='btn btn-danger'>DELETE(Warning you can't retrieve this data)</button></form></li>
-				<div id='pictures-box'> Below are pictures of the property:
-					
-					<div class='slidershow middle'>
-						<div class='slides'>
-						
-					<% for(x = 0; x < home.pictures.length; x++) { %>		
-						<input type='radio' name='r' id='r<%= x %>' <%= x === 0 ? 'checked' : '' %>>
-					<% } %>
-							
-					<% home.pictures.forEach((photo, index) => { %>
-						 
-						<div class='slide <%= index === 0 ? 's1': '' %>'><img src='<%= photo.url %>'></div>
-					<% }) %>
-							
-						</div>
-						
-						
-						<div class='navigation'>
-							<% home.pictures.forEach((photo,index) => { %>
-								<label for='r<%= index %>' class='bar'></label>
-							<% }) %>
-						</div>
-						
-					</div>
-				</div>
+				
 			</ul>
-	</div>
+	
 	
 
 

@@ -7,6 +7,45 @@
 
 	<a href='/homes/new' class='btn btn-info'>POST NEW PROPERTY</a>
 	<h3>Current Properties</h3>
+
+	<% homes.forEach((home,index) => { %>
+			<div id='myRow'>
+			<h3><%= home.bedrooms %> Bedroom Property For <%= home.lease.toLowerCase() %></h3>
+			<address><i class='fas fa-map-marker-alt'></i>  <%= home.location %></address>
+		</div>
+		
+		<div>
+			<div id='pictures-box'> Below are pictures of the property:
+					
+				<div class='slidershow middle'>
+					<div class='slides'>
+						
+						<% for(x = 0; x < home.pictures.length; x++) { %>		
+							<input type='radio' name='r' id='r<%= x %>' <%= x === 0 ? 'checked' : '' %>>
+						<% } %>
+
+						<% home.pictures.forEach((photo, index) => { %>
+
+							<div class='slide <%= index === 0 ? 's1': '' %>'><img src='<%= photo.url %>'></div>
+						<% }) %>
+							
+					</div>
+						
+						
+					<div class='navigation'>
+						<% home.pictures.forEach((photo,index) => { %>
+							<label for='r<%= index %>' class='bar'></label>
+						<% }) %>
+					</div>
+						
+				</div>
+			</div>
+		</div>
+		
+		
+	<% }) %>
+
+
 	
 	<ol>
 		<% homes.forEach((home,index) => { %>
