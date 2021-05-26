@@ -1,6 +1,6 @@
 var select = document.getElementById("state");
 var locations = document.getElementById("location")
-var submitbtn = document.querySelector('button')
+var submitbtn = document.querySelector('#submit-btn')
 var imageUpload = document.getElementById('imageUpload')
 
 var lagosOptions = ['Alimosho', 'Ajah','Ajeromi-Ifelodun', 'Kosofe', 'Mushin', 'Oshodi-Isolo', 'Ojo', 'Ikorodu', 'Surulere', 'Agege', 'Ifako-Ijaiye', 'Somolu', 'Amuwo-Odofin', 'Lagos Mainland', 'Ikeja', 'Lagos Island', 'Eti-Osa', 'Badagry', 'Apapa', 'Epe', 'Ibeju-Lekki'] 
@@ -42,7 +42,6 @@ select.addEventListener('change', function(e){
 // 	}
 // })
 	
-
 
 submitbtn.addEventListener('click', (e) => {
 	var deletePics =  document.querySelectorAll('input:checked').length

@@ -15,7 +15,7 @@ a {
 
 /* for show page image slider */
 
-#pictures-box {	
+.pictures-box {	
     margin: 0;
     padding: 0;
 	position: relative;
@@ -91,13 +91,65 @@ input[name="r"]{
 
 /*  other show page styles */
 
-#myRow{
+.myRow{
 	margin-top: 20px;
 	display: flex;
     justify-content: space-between;
+	width: 75%;
 }
 
 address{
 	 padding-top: 10px;
 }
 
+.homes-index-pic {
+	width: 225px
+}
+
+.homes-index-border {
+	border: 1px solid #ccc;
+	padding-left: 0;
+	margin-top: 1.5rem;
+}
+
+.home-index-header {
+	text-align: center;
+	margin: 5rem 0 2rem 0;
+}
+
+
+/*  imageSlider with javascript styles */
+
+.carousel-container {
+        width: 57%;
+        margin: auto;
+        border: 5px solid black;
+        position: relative;
+        overflow: hidden;
+      }
+
+.carousal-slide {
+        display: flex;
+        width: 100%;
+        height: 500px;
+}
+
+#prevBtn {
+        position: absolute;
+        top: 50%;
+        z-index: 10;
+        left: 5%;
+        font-size: 30px;
+        color: white;
+        cursor: pointer;
+}
+
+#nextBtn {
+        position: absolute;
+        right: 5%;
+        top: 50%;
+        z-index: 10;
+        font-size: 30px;
+        color: white;
+        cursor: pointer;
+}

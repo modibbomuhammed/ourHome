@@ -6,7 +6,7 @@ const { cloudinary } = require('../cloudinary');
 module.exports = {
 	async getHomes(req,res,next){
 		let homes = await Homes.find({})
-		res.render('homes/index', { homes, title: 'Home'})
+		res.render('homes/index', { homes, title: 'Homes-index'})
 	},
 	
 	newHome(req,res,next){

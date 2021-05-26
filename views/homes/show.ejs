@@ -56,7 +56,20 @@
 	
 	
 
-
+<div class="carousel-container">
+      <i class="fas fa-arrow-left" id="prevBtn"></i>
+      <i class="fas fa-arrow-right" id="nextBtn"></i>
+      <div class="carousal-slide" id='put-pictures'>
+		  <% home.pictures.forEach((pic, index) => { %>
+			 <img src='<%= pic.url %>' alt='<%- `pic${index}` %>'> 
+		  <% }) %>
+        <!-- <img src="./test-pictures/3.png" id="last-clone" alt="" />
+        <img src="./test-pictures/1.png" alt="" />
+        <img src="./test-pictures/2.png" alt="" />
+        <img src="./test-pictures/3.png" alt="" />
+        <img src="./test-pictures/1.png" id="first-clone" alt="" /> -->
+      </div>
+</div>
 
 <script>
       var map;
@@ -72,3 +85,21 @@
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3y4rA9gEGJe40UAFr0YOlqp-7VkpoUjI&callback=initMap"
     async defer></script>
+
+<script>
+	const home = <%- JSON.stringify(home) %>
+	const length = home.pictures.length;
+	const firstClone = home.pictures[0].url;
+	const lastClone = home.pictures[length - 1].url
+	const carousal = document.getElementById('put-pictures');
+	const firstImage = document.createElement('img');
+	const lastImage = document.createElement('img');
+	firstImage.setAttribute('src', lastClone)
+	firstImage.setAttribute('id', 'lastClone')
+	lastImage.setAttribute('src', firstClone)
+	lastImage.setAttribute('id', 'firstClone')
+	carousal.prepend(firstImage)
+	carousal.appendChild(lastImage)
+</script>
+	
+<script src="/javascripts/imageSlider.js"></script>
