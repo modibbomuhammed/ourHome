@@ -30,12 +30,12 @@ router.get("/register", (req, res, next) => {
 // POST REGISTER PAGE
 router.post("/register", async (req, res, next) => {
   const { username, email } = req.body;
-  var agent = new Agent({
+  const agent = new Agent({
     username,
     email,
   });
   
-  let newAgent = await Agent.register(agent, req.body.password);
+  const newAgent = await Agent.register(agent, req.body.password);
   passport.authenticate("local")(req, res, () => {
     res.redirect("/homes");
   });

@@ -9,7 +9,22 @@ const geocoder = NodeGeocoder({
 
 module.exports = {
   async getHomes(req, res, next) {
-    const homes = await Homes.find({});
+    const { state, ...otherKeys } = req.query;
+    let homes = await Homes.find({ state: req.query.state });
+    const keys = Object.keys(req.query);
+    const anySearchTerm = keys.some((val) => !!req.query[val]);
+    if (anySearchTerm) {
+      const { location, lease, bedrooms, minPrice, maxPrice } = otherKeys;
+      if (location)
+        homes = homes.filter((house) => house.location === location);
+      if (lease) homes = homes.filter((house) => house.lease === lease);
+      if (bedrooms) homes = homes.filter((house) => house.bedrooms >= bedrooms);
+      if (minPrice && maxPrice)
+        homes = homes.filter(
+          (house) => house.minPrice >= minPrice && house.maxPrice <= maxPrice
+        );
+    }
+
     res.render("homes/index", { homes, title: "Homes-index" });
   },
 
@@ -28,10 +43,17 @@ module.exports = {
         req.body.pictures.push(pic);
       }
     }
-    const addy = `${req.body.address}, ${req.body.state}`;
-    // const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${addy}&key=${process.env.GEOCODER_GOOGLE}`;
+    const addy = `${req.body.address}, ${req.body.location}`;
 
-    const [{ latitude, longitude }] = await geocoder.geocode(addy);
+    console.log(addy, "wetin dey happen for here");
+    const [{ latitude, longitude }] = await geocoder.geocode({
+      address: addy,
+      countryCode: "ng",
+      minConfidence: 0.5,
+      proximity: req.body.state === "Lagos" ? "6.5244,3.3792" : "9.0765,7.3986",
+      limit: 2,
+    });
+
     req.body.lat = latitude;
     req.body.lng = longitude;
     await Homes.create(req.body);
