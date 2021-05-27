@@ -1,119 +1,131 @@
-<% layout('layouts/indexBoilerplate') -%>
- <% include ../partials/navbar %>
-  
-  <header class="bg-primary text-white">
-    <div class="container text-center">
-      <h1>Welcome to Our Home</h1>
-      <p class="lead">Where Our Priority is focused on finding you the right home!!</p>
-    </div>
-  </header>
+<% layout('layouts/indexBoilerplate') -%> <% include ../partials/navbar %>
 
-  
+<header class="bg-primary text-white">
+  <div class="container text-center">
+    <h1>Welcome to Our Home</h1>
+    <p class="lead">
+      Where Our Priority is focused on finding you the right home!!
+    </p>
+  </div>
+</header>
+
 <section id="search" class="bg-light">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 mx-auto">
-          <h2>Search for your ideal home</h2>
-          <!-- <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut optio velit inventore, expedita quo laboriosam possimus ea consequatur vitae, doloribus consequuntur ex. Nemo assumenda laborum vel, labore ut velit dignissimos.</p> -->
-        	<form action='/homes' method='GET'>
-				<div class='row'>
-				
-			  <div class="form-group col">
-				  <label for='state'>State</label>
-					<select class="form-control" id="state" name='state'>
-					  <option value=''>State</option>
-					  <option value='Lagos'>Lagos</option>
-					  <option value='Abuja'>Abuja</option>
-					</select>
-			  </div>
-					
-					
-				<div class="form-group col">
-				  <label for='state'>Location</label>
-					<select class="form-control" id="location" name='location'>
-					  <option value=''>Location</option>
-					</select>
-			  </div>
-					
-					
-				<div class="form-group col">
-				  <label for='lease'>Category: SALE/RENT</label>
-					<select class="form-control" id="lease" name='lease'>
-					  <option value=''>SALE/RENT</option>
-					  <option value='rent'>RENT</option>
-					  <option value='sale'>SALE</option>
-					</select>
-			  </div>	
-					
-				</div>
-				
-				
-				<div class='row'>
-				
-			  <div class="form-group col">
-				  <label for='bedrooms'>Bedrooms</label>
-					<select class="form-control" id="bedrooms" name='bedrooms'>
-					  <option value=''>Bedrooms</option>
-					  <option value='1'>1</option>
-					  <option value='2'>2</option>
-					  <option value='3'>3</option>
-					  <option value='4'>4+</option>
-					</select>
-			  </div>
-					
-					
-				<div class="form-group col">
-				  <label for='min-price'>Min Price</label>
-					<input class="form-control" id="min-price" name='minPrice' type='number' step='1' min='0'>
-			  </div>
-					
-				<div class="form-group col">
-				  <label for='max-price'>Max Price</label>
-					<input class="form-control" id="max-price" name='maxPrice' step='1' min='0' max='1000000000' type='number'>
-			  </div>
-					
-						
-					
-				</div>
-				
-				
-				<button type="submit" id='submit-btn' class="btn btn-primary">Search</button>		
-					
-				
-			</form>
-		  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <h2>Search for your ideal home</h2>
+        <!-- <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut optio velit inventore, expedita quo laboriosam possimus ea consequatur vitae, doloribus consequuntur ex. Nemo assumenda laborum vel, labore ut velit dignissimos.</p> -->
+        <form action="/homes" method="GET">
+          <div class="row">
+            <div class="form-group col">
+              <label for="state">State</label>
+              <select class="form-control" id="state" name="state">
+                <option value="">State</option>
+                <option value="Lagos">Lagos</option>
+                <option value="Abuja">Abuja</option>
+              </select>
+            </div>
+
+            <div class="form-group col">
+              <label for="state">Location</label>
+              <select class="form-control" id="location" name="location">
+                <option value="">Location</option>
+              </select>
+            </div>
+
+            <div class="form-group col">
+              <label for="lease">Category: SALE/RENT</label>
+              <select class="form-control" id="lease" name="lease">
+                <option value="">SALE/RENT</option>
+                <option value="rent">RENT</option>
+                <option value="sale">SALE</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group col">
+              <label for="bedrooms">Bedrooms</label>
+              <select class="form-control" id="bedrooms" name="bedrooms">
+                <option value="">Bedrooms</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4+</option>
+              </select>
+            </div>
+
+            <div class="form-group col">
+              <label for="min-price">Min Price</label>
+              <input
+                class="form-control"
+                id="min-price"
+                name="minPrice"
+                type="number"
+                step="500000"
+                min="500000"
+              />
+            </div>
+
+            <div class="form-group col">
+              <label for="max-price">Max Price</label>
+              <input
+                class="form-control"
+                id="max-price"
+                name="maxPrice"
+                step="500000"
+                min="1000000"
+                max="1000000000"
+                type="number"
+              />
+            </div>
+          </div>
+
+          <button type="submit" id="submit-btn" class="btn btn-primary">
+            Search
+          </button>
+        </form>
       </div>
     </div>
-  </section>
-
-
-
+  </div>
+</section>
 
 <section id="about">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 mx-auto">
-          <h2>About this page</h2>
-          <p class="lead">This is a great place to talk about your webpage. This template is purposefully unstyled so you can use it as a boilerplate or starting point for you own landing page designs! This template features:</p>
-          <ul>
-            <li>Clickable nav links that smooth scroll to page sections</li>
-            <li>Responsive behavior when clicking nav links perfect for a one page website</li>
-            <li>Bootstrap's scrollspy feature which highlights which section of the page you're on in the navbar</li>
-            <li>Minimal custom CSS so you are free to explore your own unique design options</li>
-          </ul>
-        </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <h2>About this page</h2>
+        <p class="lead">
+          This is a great place to talk about your webpage. This template is
+          purposefully unstyled so you can use it as a boilerplate or starting
+          point for you own landing page designs! This template features:
+        </p>
+        <ul>
+          <li>Clickable nav links that smooth scroll to page sections</li>
+          <li>
+            Responsive behavior when clicking nav links perfect for a one page
+            website
+          </li>
+          <li>
+            Bootstrap's scrollspy feature which highlights which section of the
+            page you're on in the navbar
+          </li>
+          <li>
+            Minimal custom CSS so you are free to explore your own unique design
+            options
+          </li>
+        </ul>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  
+<!-- Footer -->
+<footer class="py-5 bg-dark">
+  <div class="container">
+    <p class="m-0 text-center text-white">Copyright &copy; Our Home 2020</p>
+  </div>
+  <!-- /.container -->
+</footer>
 
-  <!-- Footer -->
-  <footer class="py-5 bg-dark">
-    <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; Our Home 2020</p>
-    </div>
-    <!-- /.container -->
-  </footer>
-
-<script src='/javascripts/editHome.js'></script>
+<script src="/javascripts/editHome.js"></script>

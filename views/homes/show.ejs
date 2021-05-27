@@ -1,4 +1,11 @@
 <% layout('layouts/boilerplate') -%>
+
+<% block('head').append('<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">') %>
+
+<% block('head').append('<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>') %>
+
+<% block('head').append('<link rel="stylesheet" href="/stylesheets/showPage.css" />') %>
+
 <% include ../partials/navbar %>
 
 <div class='row'>
@@ -72,19 +79,31 @@
 </div>
 
 <script>
-      var map;
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: <%= home.lat %>, lng: <%= home.lng %>},
-          zoom: 13
-        });
-      }
-	
+    //   var map;
+    //   function initMap() {
+    //     map = new google.maps.Map(document.getElementById('map'), {
+    //       center: {lat: <%= home.lat %>, lng: <%= home.lng %>},
+    //       zoom: 13
+    //     });
+	//   }
+	const {lat, lng} = <%- JSON.stringify(home) %>
+	// const myMap = L.map('map').setView([lat, lng], 13);
+	const myMap = L.map('map').setView([51.505, -0.09], 13);
+
+	L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox/streets-v11',
+    tileSize: 512,
+    zoomOffset: -1,
+    accessToken: 'pk.eyJ1IjoibW9kaWJib211aGFtbWVkIiwiYSI6ImNrN2phejFiZDBwM3AzZnBlYWFwZ29xYW4ifQ.orXK9_bb_UITKgJT5YdB5Q'
+}).addTo(myMap);
+
 </script>
 
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3y4rA9gEGJe40UAFr0YOlqp-7VkpoUjI&callback=initMap"
-    async defer></script>
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3y4rA9gEGJe40UAFr0YOlqp-7VkpoUjI&callback=initMap"
+    async defer></script> -->
 
 <script>
 	const home = <%- JSON.stringify(home) %>

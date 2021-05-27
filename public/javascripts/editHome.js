@@ -24,24 +24,6 @@ select.addEventListener('change', function(e){
 	}
 })
 
-// window.addEventListener('load', function(e){
-// 	let serverState = currentState
-// 	for(x = 1; x < state.length; x++){
-// 		if(serverState == state[x].value){	
-// 			state.value = state[x].value
-// 			for(x = 1; x < state.length; x++){
-// 				if(state.value === 'Abuja'){
-// 					addAbuja()	
-// 					locations.value = currentLocation
-// 				} else {
-// 					addLagos()
-// 					locations.value = currentLocation
-// 				}	
-// 			}
-// 		}
-// 	}
-// })
-	
 
 submitbtn.addEventListener('click', (e) => {
 	var deletePics =  document.querySelectorAll('input:checked').length
@@ -49,8 +31,8 @@ submitbtn.addEventListener('click', (e) => {
 	var picturesUpload = imageUpload.files.length || 0
 	var total = picturesUpload + currentPics - deletePics
 	if(total > 10){
-		alert(`You can't have more than 10 pictures. Please remove ${total - 10} photo${total - 10 === 1 ? '': 's'}`)
 		e.preventDefault()
+		alert(`You can't have more than 10 pictures. Please remove ${total - 10} photo${total - 10 === 1 ? '': 's'}`)
 	}
 })
 
