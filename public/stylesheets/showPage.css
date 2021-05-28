@@ -1,29 +1,29 @@
 #pictures-box {
-  /* margin: 0;
-	padding: 0;
-	background: #34495e;
-	height: 500px;
-	width: 500px; */
-
-  background: #34495e;
-  margin: 0;
-  padding: 0;
   height: 500px;
-  width: 500px;
 }
 
 #map {
   height: 300px;
-  top: 84px;
 }
 
-slidershow {
+#showPage__header {
+  text-align: center;
+  font-size: 35px;
+}
+
+.row {
+  margin-top: 40px;
+}
+
+.slidershow {
   width: 100%;
   height: 100%;
   overflow: hidden;
 }
 
 .middle {
+  width: 100%;
+  height: 100%;
   position: absolute;
   top: 50%;
   left: 50%;

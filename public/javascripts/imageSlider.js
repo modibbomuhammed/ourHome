@@ -1,4 +1,3 @@
-console.log('connected')
 const carousalSlide = document.querySelector(".carousal-slide");
 const carousalImages = document.querySelectorAll(".carousal-slide img");
 
