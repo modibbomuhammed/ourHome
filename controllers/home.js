@@ -61,8 +61,12 @@ module.exports = {
   },
 
   async showHome(req, res, next) {
-    const home = await Homes.findById(req.params.id);
-    res.render("homes/show", { home, title: "Details" });
+    try{
+      const home = await Homes.findById(req.params.id);
+      res.render("homes/show", { home, title: "Details" });
+    }catch(e){
+      next({e});
+    }
   },
 
   async editHome(req, res, next) {

@@ -20,116 +20,95 @@
     <div>
       <div id="slideshow-container">
         <% home.pictures.forEach((photo, index, arr) => { %>
-        <div class="mySlides fade">
-          <div class="numbertext"><%= `${index + 1} / ${arr.length}`%></div>
+          <div class="mySlides fade">
+            <div class="numbertext"><%= `${index + 1} / ${arr.length}`%></div>
           <img src="<%= photo.url %>" alt="pictures" />
         </div>
         <% }) %>
-
+        
         <a class="prev">&#10094;</a>
         <a class="next">&#10094;</a>
-
-        <!-- <div class='slidershow middle'>
-					  <div class='slides'>
-						  
-						  <% for(x = 0; x < home.pictures.length; x++) { %>		
-							  <input type='radio' name='r' id='r<%= x %>' <%= x === 0 ? 'checked' : '' %>>
-						  <% } %>
-  
-						  <% home.pictures.forEach((photo, index) => { %>
-  
-							  <div class='slide <%= index === 0 ? 's1': '' %>'><img src='<%= photo.url %>'></div>
-						  <% }) %>
-							  
-					  </div>
-						  
-						  
-					  <div class='navigation'>
-						  <% home.pictures.forEach((photo,index) => { %>
-							  <label for='r<%= index %>' class='bar'></label>
-						  <% }) %>
-					  </div>
-						  
-				  </div> -->
+        
       </div>
     </div>
-
-    <address style="text-align: end">
-      <i class="fas fa-map-marker-alt"></i> <%= home.location %>
-    </address>
-  </section>
-
-  <%= home.state %> State
-  <ul>
-    <li>location at</li>
-    <li>Going for</li>
-    <li>bedrooms property costing N<%= home.price %></li>
-    <li>
-      <a href="/homes/<%= home.id %>/edit" class="btn btn-primary">EDIT</a>
-      <form
-        style="display: inline"
-        action="/homes/<%= home.id %>?_method=DELETE"
-        method="POST"
-      >
-        <button class="btn btn-danger">
-          DELETE(Warning you can't retrieve this data)
-        </button>
-      </form>
-    </li>
-  </ul>
-
-  <div class="carousel-container">
-    <i class="fas fa-arrow-left" id="prevBtn"></i>
-    <i class="fas fa-arrow-right" id="nextBtn"></i>
-    <div class="carousal-slide" id="put-pictures">
-      <% home.pictures.forEach((pic, index) => { %>
-      <img src="<%= pic.url %>" alt="<%- `pic${index}` %>" />
+    
+    <div class="dot-container">
+      <% home.pictures.forEach((photo, index, arr) => { %>
+        <span class="dot" id="<%= index %>"></span> 
       <% }) %>
     </div>
-  </div>
+
+    <address style="text-align: end"><i class="fas fa-map-marker-alt"></i><%= home.location %></address>
+    <h4>Property Features</h4>
+    <ul>
+      <li>location at: <%= home.location %></li>
+      <li>Going for ₦<span id="displayPrice"><%= home.price %></span></li>  
+    </ul>
+
+    <a href="/homes/<%= home.id %>/edit" class="btn btn-primary">EDIT</a>
+    <form
+      style="display: inline"
+      action="/homes/<%= home.id %>?_method=DELETE"
+      method="POST"
+    >
+      <button class="btn btn-danger">
+        DELETE(Warning you can't retrieve this data)
+      </button>
+    </form>
+  </section>
+
 
   <script>
-    	const {lat, lng} = <%- JSON.stringify(home) %>
-    	const myMap = L.map('map').setView([lat, lng], 13);;
+      // const {lat, lng} = <%- JSON.stringify(home) %>
+      const { lat, lng } = JSON.parse('<%- JSON.stringify(home) %>');
+    	const myMap = L.map('map').setView([lat, lng], 13);
 
     	L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         maxZoom: 18,
         id: 'mapbox/streets-v11',
+        noWrap: true,
         tileSize: 512,
         zoomOffset: -1,
         accessToken: 'pk.eyJ1IjoibW9kaWJib211aGFtbWVkIiwiYSI6ImNrN2o4bW1rajA5cnEzZXJ3Z2tjcHh0eG4ifQ.HhXWW8u_prQskpDfMM_43g'
     }).addTo(myMap);
+
   </script>
 
   <script>
-	// const home = JSON.parse("<%- JSON.stringify(home) %>");
+
 	let slideIndex = 1;
 	const prevButton = document.querySelector(".prev");
 	const nextButton = document.querySelector(".next");
+  const dots = document.querySelectorAll('.dot');
+  
+  dots.forEach(function(val){
+    val.addEventListener('click', function(e){
+      currentSlide(Number(val.id));
+    })
+  })
 
 	prevButton.addEventListener('click', ()=> {
   		plusSlides(-1)
 	});
 
 	nextButton.addEventListener('click', ()=> {
-	plusSlides(1);
+	  plusSlides(1);
 	});
 
 	showSlides(slideIndex);
 
 	function plusSlides(n) {
-	showSlides(slideIndex += n);
+	  showSlides(slideIndex += n);
 	}
 
 	function currentSlide(n) {
-	showSlides(slideIndex = n);
+	  showSlides(slideIndex = n + 1);
 	}
 
 	function showSlides(n) {
 		var i;
 		var slides = document.getElementsByClassName("mySlides");
-		var dots = document.getElementsByClassName("dot");
 		if (n > slides.length) {slideIndex = 1}    
 		if (n < 1) {slideIndex = slides.length}
 		for (i = 0; i < slides.length; i++) {
@@ -137,22 +116,10 @@
 		}
 		for (i = 0; i < dots.length; i++) {
 			dots[i].className = dots[i].className.replace(" active", "");
-		}
+    }
 		slides[slideIndex-1].style.display = "block";  
-		// dots[slideIndex-1].className += " active";
+		dots[slideIndex-1].className += " active";
 	}
-    // const length = home.pictures.length;
-    // const firstClone = home.pictures[0].url;
-    // const lastClone = home.pictures[length - 1].url;
-    // const carousal = document.getElementById("put-pictures");
-    // const firstImage = document.createElement("img");
-    // const lastImage = document.createElement("img");
-    // firstImage.setAttribute("src", lastClone);
-    // firstImage.setAttribute("id", "lastClone");
-    // lastImage.setAttribute("src", firstClone);
-    // lastImage.setAttribute("id", "firstClone");
-    // carousal.prepend(firstImage);
-    // carousal.appendChild(lastImage);
   </script>
 
   <script src="/javascripts/imageSlider.js"></script>
