@@ -9,23 +9,33 @@ const geocoder = NodeGeocoder({
 
 module.exports = {
   async getHomes(req, res, next) {
+    if (!Object.keys(req.query).length) {
+      const homes = await Homes.find({});
+      res.render("homes/index", { homes, title: "Homes-index", show: true });
+      return;
+    }
     const { state, ...otherKeys } = req.query;
     let homes = await Homes.find({ state: req.query.state });
+
     const keys = Object.keys(req.query);
     const anySearchTerm = keys.some((val) => !!req.query[val]);
     if (anySearchTerm) {
       const { location, lease, bedrooms, minPrice, maxPrice } = otherKeys;
-      if (location)
+      if (location && location !== "All")
         homes = homes.filter((house) => house.location === location);
-      if (lease) homes = homes.filter((house) => house.lease === lease);
+
+      if (lease && lease !== "All")
+        homes = homes.filter((house) => house.lease === lease.toUpperCase());
+
       if (bedrooms) homes = homes.filter((house) => house.bedrooms >= bedrooms);
+
       if (minPrice && maxPrice)
         homes = homes.filter(
           (house) => house.minPrice >= minPrice && house.maxPrice <= maxPrice
         );
     }
 
-    res.render("homes/index", { homes, title: "Homes-index" });
+    res.render("homes/index", { homes, title: "Homes-index", show: false });
   },
 
   newHome(req, res, next) {
@@ -43,9 +53,16 @@ module.exports = {
         req.body.pictures.push(pic);
       }
     }
-    const addy = `${req.body.address}, ${req.body.location}`;
+    const addy = `${req.body.location}, ${req.body.state}`;
 
-    console.log(addy, "wetin dey happen for here");
+    const sample = await geocoder.geocode({
+      address: addy,
+      countryCode: "ng",
+      minConfidence: 0.5,
+      proximity: req.body.state === "Lagos" ? "6.5244,3.3792" : "9.0765,7.3986",
+      limit: 2,
+    });
+
     const [{ latitude, longitude }] = await geocoder.geocode({
       address: addy,
       countryCode: "ng",
@@ -76,41 +93,41 @@ module.exports = {
 
   async updateHome(req, res, next) {
     const home = await Homes.findById(req.params.id);
-    console.log(req.body, "ashman");
-    // if (req.body.changePics && req.body.changePics.length) {
-    //   await cloudinary.v2.api.delete_resources(req.body.changePics);
 
-    //   for (const publicid of req.body.changePics) {
-    //     for (const result of home.pictures) {
-    //       if (result.public_id === publicid) {
-    //         const index = home.pictures.indexOf(result);
-    //         home.pictures.splice(index, 1);
-    //       }
-    //     }
-    //   }
-    // }
+    if (req.body.changePics && req.body.changePics.length) {
+      await cloudinary.v2.api.delete_resources(req.body.changePics);
 
-    // if (req.files.length) {
-    //   for (let result of req.files) {
-    //     let pic = {
-    //       url: result.secure_url,
-    //       public_id: result.public_id,
-    //     };
-    //     home.pictures.push(pic);
-    //   }
-    // }
+      for (const publicid of req.body.changePics) {
+        for (const result of home.pictures) {
+          if (result.public_id === publicid) {
+            const index = home.pictures.indexOf(result);
+            home.pictures.splice(index, 1);
+          }
+        }
+      }
+    }
 
-    // const { state, location, lease, bedrooms, price, description } = req.body;
+    if (req.files.length) {
+      for (let result of req.files) {
+        let pic = {
+          url: result.secure_url,
+          public_id: result.public_id,
+        };
+        home.pictures.push(pic);
+      }
+    }
 
-    // home.state = state;
-    // home.location = location;
-    // home.lease = lease;
-    // home.bedrooms = bedrooms;
-    // home.price = price;
-    // home.description = description;
+    const { state, location, lease, bedrooms, price, description } = req.body;
 
-    // await home.save();
-    // res.redirect("/homes/" + home.id);
+    home.state = state;
+    home.location = location;
+    home.lease = lease;
+    home.bedrooms = bedrooms;
+    home.price = price;
+    home.description = description;
+
+    await home.save();
+    res.redirect("/homes/" + home.id);
   },
 
   async deleteHome(req, res, next) {

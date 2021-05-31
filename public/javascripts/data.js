@@ -1,4 +1,5 @@
 const lagosOptions = [
+  "All",
   "Alimosho",
   "Ajah",
   "Ajeromi-Ifelodun",
@@ -20,9 +21,10 @@ const lagosOptions = [
   "Apapa",
   "Epe",
   "Ibeju-Lekki",
-].sort();
+];
 
 const abujaOptions = [
+  "All",
   "Abaji",
   "Apo",
   "Asokoro",
@@ -82,7 +84,7 @@ const abujaOptions = [
   "Wuse",
   "Wuse 2",
   "Wuye",
-].sort();
+];
 
 const prices = [
   "none",
@@ -107,3 +109,15 @@ const prices = [
   "₦ 100 Million",
   "₦ 150 Million",
 ];
+
+lagosOptions.sort((a, b) => {
+  if (a === "All") return -1;
+  if (b === "All") return 1;
+  return a < b ? -1 : 1;
+});
+
+abujaOptions.sort((a, b) => {
+  if (a === "All") return -1;
+  if (b === "All") return 1;
+  return a < b ? -1 : 1;
+});

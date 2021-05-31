@@ -41,8 +41,8 @@ function addLocations(searchState) {
   if (searchState === "0") return;
   const locationsArray = locationsObject[searchState];
   for (var i = 0; i < locationsArray.length; i++) {
-    var opt = locationsArray[i];
-    var el = document.createElement("option");
+    const opt = locationsArray[i];
+    const el = document.createElement("option");
     el.textContent = opt;
     el.value = opt;
     locations.appendChild(el);

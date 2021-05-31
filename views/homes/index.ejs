@@ -1,22 +1,38 @@
 <% layout('layouts/boilerplate') -%>
 
-
-
-<h1 class='home-index-header'>
-	The Following properties meet you search criterias
+<h1 class="home-index-header">
+  <%= show ? 'Check Out Our Newest Properties' : 'The Following properties meet you search criterias' %>
 </h1>
 
 <% homes.forEach(home => { %>
-<div class='container homes-index-border'>
-	<div class="media">
-		<img src= "<%= home.pictures[0] ? home.pictures[0].url : null %>" class="mr-3 homes-index-pic" alt="...">
-		<div class="card-body">
-        	<h5 class="card-title"><%= home.bedrooms %> Bedroom Property For <%= home.lease.toLowerCase() %> </h5>
-			<address><i class='fas fa-map-marker-alt'></i>  <%= home.location %></address>
-        	<p class="card-text"><%- home.description.substring(1,50) %>...</p>
-			<a href='/homes/<%= home.id %>'> Check it out...</a>
-        	<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-      </div>
-	</div>	
+<div class="container homes-index-border">
+  <div class="media">
+    <img
+      src="<%= home.pictures[0] ? home.pictures[0].url : null %>"
+      class="mr-3 homes-index-pic"
+      alt="..."
+    />
+    <div class="card-body">
+      <h5 class="card-title">
+        <%= home.bedrooms %> Bedroom Property For <%= home.lease.toLowerCase()
+        %>
+      </h5>
+      <address>
+        <i class="fas fa-map-marker-alt"></i> <%= home.location %>
+      </address>
+      <p class="card-text"><%- home.description.substring(0,50) %>...</p>
+      <a href="/homes/<%= home.id %>"> Check it out...</a>
+      <p class="card-text">
+        <small class="text-muted">Last updated 3 mins ago</small>
+      </p>
+    </div>
+  </div>
 </div>
+
 <% }) %>
+
+<script>
+  window.addEventListener("popstate", (e) => {
+    console.log(e, "ashman", history);
+  });
+</script>
