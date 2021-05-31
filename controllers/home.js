@@ -61,11 +61,11 @@ module.exports = {
   },
 
   async showHome(req, res, next) {
-    try{
+    try {
       const home = await Homes.findById(req.params.id);
       res.render("homes/show", { home, title: "Details" });
-    }catch(e){
-      next({e});
+    } catch (e) {
+      next({ e });
     }
   },
 
@@ -76,41 +76,41 @@ module.exports = {
 
   async updateHome(req, res, next) {
     const home = await Homes.findById(req.params.id);
+    console.log(req.body, "ashman");
+    // if (req.body.changePics && req.body.changePics.length) {
+    //   await cloudinary.v2.api.delete_resources(req.body.changePics);
 
-    if (req.body.changePics && req.body.changePics.length) {
-      await cloudinary.v2.api.delete_resources(req.body.changePics);
+    //   for (const publicid of req.body.changePics) {
+    //     for (const result of home.pictures) {
+    //       if (result.public_id === publicid) {
+    //         const index = home.pictures.indexOf(result);
+    //         home.pictures.splice(index, 1);
+    //       }
+    //     }
+    //   }
+    // }
 
-      for (const publicid of req.body.changePics) {
-        for (const result of home.pictures) {
-          if (result.public_id === publicid) {
-            const index = home.pictures.indexOf(result);
-            home.pictures.splice(index, 1);
-          }
-        }
-      }
-    }
+    // if (req.files.length) {
+    //   for (let result of req.files) {
+    //     let pic = {
+    //       url: result.secure_url,
+    //       public_id: result.public_id,
+    //     };
+    //     home.pictures.push(pic);
+    //   }
+    // }
 
-    if (req.files.length) {
-      for (let result of req.files) {
-        let pic = {
-          url: result.secure_url,
-          public_id: result.public_id,
-        };
-        home.pictures.push(pic);
-      }
-    }
+    // const { state, location, lease, bedrooms, price, description } = req.body;
 
-    const { state, location, lease, bedrooms, price, description } = req.body;
+    // home.state = state;
+    // home.location = location;
+    // home.lease = lease;
+    // home.bedrooms = bedrooms;
+    // home.price = price;
+    // home.description = description;
 
-    home.state = state;
-    home.location = location;
-    home.lease = lease;
-    home.bedrooms = bedrooms;
-    home.price = price;
-    home.description = description;
-
-    await home.save();
-    res.redirect("/homes/" + home.id);
+    // await home.save();
+    // res.redirect("/homes/" + home.id);
   },
 
   async deleteHome(req, res, next) {

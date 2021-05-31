@@ -1,69 +1,62 @@
-var select = document.getElementById("state");
-var locations = document.getElementById("location")
-var submitbtn = document.querySelector('#submit-btn')
-var imageUpload = document.getElementById('imageUpload')
+const select = document.getElementById("state");
+const locations = document.getElementById("location");
+const submitBtn = document.querySelector("#edit-submit-button");
+const imageUpload = document.getElementById("imageUpload");
+const minPrice = document.getElementById("min-price");
+const maxPrice = document.getElementById("max-price");
 
-var lagosOptions = ['Alimosho', 'Ajah','Ajeromi-Ifelodun', 'Kosofe', 'Mushin', 'Oshodi-Isolo', 'Ojo', 'Ikorodu', 'Surulere', 'Agege', 'Ifako-Ijaiye', 'Somolu', 'Amuwo-Odofin', 'Lagos Mainland', 'Ikeja', 'Lagos Island', 'Eti-Osa', 'Badagry', 'Apapa', 'Epe', 'Ibeju-Lekki'] 
+const locationsObject = { Lagos: lagosOptions, Abuja: abujaOptions };
 
-var abujaOptions = ['Abaji', 'Apo', 'Asokoro', 'Bwari', 'Central Area', 'Cultural Zones', 'Dakibiyu', 'Dakwo', 'Dape', 'Dei-Dei', 'Diplomatic Zones', 'Duboyi', 'Durumi', 'Dutse', 'Gaduwa', 'Galadimawa', 'Garki', 'Gudu', 'Guzape District', 'Gwarinpa','Idu Industrial', 'Gwagwalada', 'Ija', 'Institution and Research', 'Jabi', 'Jahi', 'Jukwoyi', 'Kaba', 'Kubasa', 'Kado', 'Kafe', 'Kagini', 'Karmo', 'Karsana', 'Karshi', 'Karu', 'Katampe', 'Kaura', 'Kpeyegyi', 'Kubwa', 'Kuje', 'Kukwuaba', 'Kurudu', 'Kwali', 'Kyami', 'Lokogoma District', 'Lugbe District', 'Mabuchi', 'Maitama District', 'Mbora', 'Mpape', 'Nyanya', 'Okanje', 'Orozo', 'Utako', 'Wumba', 'Wuse', 'Wuse 2', 'Wuye']
+select.addEventListener("change", function (e) {
+  removeElements();
+  addLocations(state.value);
+});
 
-
-select.addEventListener('change', function(e){
-	if(select.value === 'Lagos'){
-		removeElements()
-		addLagos()
-	} else if (select.value === 'Abuja'){
-		removeElements()
-		addAbuja()   
-	} else {
-		removeElements()
-		var el = document.createElement("option");
-		el.textContent = 'location';
-		el.value = '0';
-		locations.appendChild(el);
-	}
-})
-
-
-submitbtn.addEventListener('click', (e) => {
-	var deletePics =  document.querySelectorAll('input:checked').length
-	var currentPics = document.getElementsByClassName('deleteCheckbox').length
-	var picturesUpload = imageUpload.files.length || 0
-	var total = picturesUpload + currentPics - deletePics
-	if(total > 10){
-		e.preventDefault()
-		alert(`You can't have more than 10 pictures. Please remove ${total - 10} photo${total - 10 === 1 ? '': 's'}`)
-	}
-})
-
-
-
-function removeElements(){
-	while (locations.firstElementChild) {
-		locations.removeChild(locations.firstElementChild)
-	}
+if (page !== "Home") {
+  submitBtn.addEventListener("click", (e) => {
+    const deletePics = document.querySelectorAll("input:checked").length;
+    const currentPics = document.getElementsByClassName("deleteCheckbox")
+      .length;
+    const picturesUpload = imageUpload.files.length || 0;
+    const total = picturesUpload + currentPics - deletePics;
+    if (total > 10) {
+      const allowedPhotos = total - 10;
+      e.preventDefault();
+      alert(
+        `You can't have more than 10 pictures. Please remove ${allowedPhotos} photo${
+          allowedPhotos === 1 ? "" : "s"
+        }`
+      );
+    }
+  });
 }
 
-
-function addLagos(){
-	for(var i = 0; i < lagosOptions.length; i++) {
-		var opt = lagosOptions[i];
-		var el = document.createElement("option");
-		el.textContent = opt;
-		el.value = opt;
-		// locations.removeChild('option')
-		let element = document.getElementById("top");
-		locations.appendChild(el);
-	}
+function removeElements() {
+  while (locations.firstElementChild) {
+    locations.removeChild(locations.firstElementChild);
+  }
 }
 
+function addLocations(searchState) {
+  if (searchState === "0") return;
+  const locationsArray = locationsObject[searchState];
+  for (var i = 0; i < locationsArray.length; i++) {
+    var opt = locationsArray[i];
+    var el = document.createElement("option");
+    el.textContent = opt;
+    el.value = opt;
+    locations.appendChild(el);
+  }
+}
 
-function addAbuja(){
-	for(var i = 0; i < abujaOptions.length; i++) {
-		var opt = abujaOptions[i];
-		var el = document.createElement("option");
-		el.textContent = opt;
-		el.value = opt;
-		locations.appendChild(el);
-	}
+if (page === "Home") {
+  window.addEventListener("load", () => {
+    for (let amount of prices) {
+      const figure = document.createElement("option");
+      figure.textContent = amount;
+      figure.value = amount === "none" ? "0" : amount;
+      minPrice.innerHTML += figure.outerHTML;
+      maxPrice.innerHTML += figure.outerHTML;
+    }
+  });
 }

@@ -36,7 +36,8 @@
             <div class="form-group col">
               <label for="lease">Category: SALE/RENT</label>
               <select class="form-control" id="lease" name="lease">
-                <option value="">SALE/RENT</option>
+                <option value="">Category</option>
+                <option value="all">All</option>
                 <option value="rent">RENT</option>
                 <option value="sale">SALE</option>
               </select>
@@ -57,27 +58,12 @@
 
             <div class="form-group col">
               <label for="min-price">Min Price</label>
-              <input
-                class="form-control"
-                id="min-price"
-                name="minPrice"
-                type="number"
-                step="500000"
-                min="500000"
-              />
+              <select name="minprice" id="min-price" class="form-control"></select>
             </div>
 
             <div class="form-group col">
               <label for="max-price">Max Price</label>
-              <input
-                class="form-control"
-                id="max-price"
-                name="maxPrice"
-                step="500000"
-                min="1000000"
-                max="1000000000"
-                type="number"
-              />
+              <select class="form-control" id="max-price" name="maxPrice"></select>
             </div>
           </div>
 
@@ -128,4 +114,8 @@
   <!-- /.container -->
 </footer>
 
+<script>
+  const page = "<%= title %>";
+</script>
+<script src="/javascripts/data.js"></script>
 <script src="/javascripts/editHome.js"></script>

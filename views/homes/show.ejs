@@ -1,15 +1,12 @@
-<% layout('layouts/boilerplate') -%>
-<% block('head').append('<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>') %>
+<% layout('layouts/boilerplate') -%> 
+<% block('head').append('<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>') %> 
 <% block('head').append('<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>') %> 
-<% block('head').append('<link rel="stylesheet" href="/stylesheets/showPage.css"/>') %>
-
+<% block('head').append('<link rel="stylesheet" href="/stylesheets/showPage.css"/>') %> 
 <% include ../partials/navbar %>
 
-
-
-<h3 id="showPage__header">
+<h1 id="showPage__header">
   <%= home.bedrooms %> Bedrooms Property For <%= home.lease.toLowerCase() %>
-</h3>
+</h1>
 
 <div class="row">
   <div class="col-md-4">
@@ -20,29 +17,30 @@
     <div>
       <div id="slideshow-container">
         <% home.pictures.forEach((photo, index, arr) => { %>
-          <div class="mySlides fade">
-            <div class="numbertext"><%= `${index + 1} / ${arr.length}`%></div>
+        <div class="mySlides fade">
+          <div class="numbertext"><%= `${index + 1} / ${arr.length}`%></div>
           <img src="<%= photo.url %>" alt="pictures" />
         </div>
         <% }) %>
-        
+
         <a class="prev">&#10094;</a>
         <a class="next">&#10094;</a>
-        
       </div>
     </div>
-    
+
     <div class="dot-container">
       <% home.pictures.forEach((photo, index, arr) => { %>
-        <span class="dot" id="<%= index %>"></span> 
+      <span class="dot" id="<%= index %>"></span>
       <% }) %>
     </div>
 
-    <address style="text-align: end"><i class="fas fa-map-marker-alt"></i><%= home.location %></address>
+    <address style="text-align: end">
+      <i class="fas fa-map-marker-alt"></i><%= home.location %>
+    </address>
     <h4>Property Features</h4>
     <ul>
       <li>location at: <%= home.location %></li>
-      <li>Going for ₦<span id="displayPrice"><%= home.price %></span></li>  
+      <li>Going for ₦<span id="displayPrice"><%= home.price %></span></li>
     </ul>
 
     <a href="/homes/<%= home.id %>/edit" class="btn btn-primary">EDIT</a>
@@ -57,24 +55,26 @@
     </form>
   </section>
 
-
   <script>
-      // const {lat, lng} = <%- JSON.stringify(home) %>
-      const { lat, lng } = JSON.parse('<%- JSON.stringify(home) %>');
-    	const myMap = L.map('map').setView([lat, lng], 13);
-
-    	L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    const {lat, lng} = <%- JSON.stringify(home) %>
+    // const { lat, lng } = JSON.parse("<%- JSON.stringify(home) %>");
+    const myMap = L.map("map").setView([lat, lng], 13);
+  
+    L.tileLayer(
+      "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
+      {
+        attribution:
+          'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         maxZoom: 18,
-        id: 'mapbox/streets-v11',
+        id: "mapbox/streets-v11",
         noWrap: true,
         tileSize: 512,
         zoomOffset: -1,
-        accessToken: 'pk.eyJ1IjoibW9kaWJib211aGFtbWVkIiwiYSI6ImNrN2o4bW1rajA5cnEzZXJ3Z2tjcHh0eG4ifQ.HhXWW8u_prQskpDfMM_43g'
-    }).addTo(myMap);
-
+        accessToken:
+          "pk.eyJ1IjoibW9kaWJib211aGFtbWVkIiwiYSI6ImNrN2o4bW1rajA5cnEzZXJ3Z2tjcHh0eG4ifQ.HhXWW8u_prQskpDfMM_43g",
+      }
+    ).addTo(myMap);
   </script>
-
 
   <script src="/javascripts/imageSlider.js"></script>
 </div>
