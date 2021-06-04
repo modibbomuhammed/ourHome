@@ -149,3 +149,7 @@ address {
   color: white;
   cursor: pointer;
 }
+
+.media > img {
+  height: 182px;
+}

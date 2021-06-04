@@ -1,7 +1,7 @@
 <% layout('layouts/boilerplate') -%>
 
 <h1 class="home-index-header">
-  <%= show ? 'Check Out Our Newest Properties' : 'The Following properties meet you search criterias' %>
+  <%= show ? 'Check Out Our Newest Properties' : 'The Following properties meet your search criteria' %>
 </h1>
 
 <% homes.forEach(home => { %>
@@ -30,9 +30,3 @@
 </div>
 
 <% }) %>
-
-<script>
-  window.addEventListener("popstate", (e) => {
-    console.log(e, "ashman", history);
-  });
-</script>
